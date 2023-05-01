@@ -21,9 +21,11 @@ public class SortingView : BaseConsoleView
         _options = new Dictionary<string, string>()
         {
             { "1", "Сортировка глобального массива пузырьком" },
-            { "2", "Сортировка глобального массива пузырьком с контролем наличия обменов"},
-            { "3", "Сортировка глобального массива перемешиванием"},
-            { "4", "Сортировка глобального массива перемешиванием с контролем наличия обменов"},
+            { "2", "Сортировка глобального массива пузырьком с контролем наличия обменов" },
+            { "3", "Сортировка глобального массива перемешиванием" },
+            { "4", "Сортировка глобального массива перемешиванием с контролем наличия обменов" },
+            { "5", "Сортировка глобального массива вставками" },
+            { "6", "Гномья сортировка глобального массива" },
             { "99", "Назад" }
         };
     }
@@ -90,13 +92,47 @@ public class SortingView : BaseConsoleView
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
                 break;
-                }
+            }
             case "4":
             {
                 PrintOperationNameByKey(input);
                 IEnumerable<int> numbers = _numbersStorageService.Get();
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.ShufflingSortWithSwapChecks(numbers), out object? objectResult
+                );
+                IEnumerable<int> sortedNumbers = new List<int>();
+                if (objectResult is not null)
+                {
+                    sortedNumbers = (IEnumerable<int>)objectResult;
+                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                }
+                PrintSuccess();
+                PrintHowMuchMillisecondsHavePassed(milliseconds);
+                break;
+            }
+            case "5":
+            {
+                PrintOperationNameByKey(input);
+                IEnumerable<int> numbers = _numbersStorageService.Get();
+                long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
+                    => _sortingService.InsertionSort(numbers), out object? objectResult
+                );
+                IEnumerable<int> sortedNumbers = new List<int>();
+                if (objectResult is not null)
+                {
+                    sortedNumbers = (IEnumerable<int>)objectResult;
+                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                }
+                PrintSuccess();
+                PrintHowMuchMillisecondsHavePassed(milliseconds);
+                break;
+            }
+            case "6":
+            {
+                PrintOperationNameByKey(input);
+                IEnumerable<int> numbers = _numbersStorageService.Get();
+                long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
+                    => _sortingService.GnomeSort(numbers), out object? objectResult
                 );
                 IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)

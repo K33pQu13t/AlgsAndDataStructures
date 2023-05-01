@@ -29,4 +29,18 @@ public interface ISortingService<TType>
     /// <param name="data"></param>
     /// <returns></returns>
     public IEnumerable<TType> ShufflingSortWithSwapChecks(IEnumerable<TType> data);
+
+    /// <summary>
+    /// Отсортировать коллекцию алгоритмов сортировкой вставками
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public IEnumerable<TType> InsertionSort(IEnumerable<TType> data);
+
+    /// <summary>
+    /// Отсортировать коллекцию гномьей сортировкой
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public IEnumerable<TType> GnomeSort(IEnumerable<TType> data);
 }
