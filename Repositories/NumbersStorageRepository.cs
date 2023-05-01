@@ -31,10 +31,12 @@ public class NumbersStorageRepository : INumbersStorageRepository
     private IImmutableList<int> _numbers = ImmutableList.Create<int>();
 
     public IEnumerable<int> Get() => _numbers;
+
     public void Set(IEnumerable<int> numbers)
     {
         _numbers = ImmutableList.CreateRange<int>(numbers);
-    }
+    } 
+
     public void Add(int number)
     {
         _numbers.Insert(_numbers.Count-1, number);

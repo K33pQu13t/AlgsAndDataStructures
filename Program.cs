@@ -13,6 +13,8 @@ internal class Program
             .AddScoped<IFileService, FileService>()
             .AddScoped<INumbersStorageService, NumbersStorageService>()
             .AddScoped<IPerfomanceProviderService, PerfomanceProviderService>()
+            .AddScoped<ISortingService<int>, IntSortingService>()
+            .AddScoped<SortingView>()
             .AddSingleton<INumbersStorageRepository, NumbersStorageRepository>()
             .BuildServiceProvider();
 
