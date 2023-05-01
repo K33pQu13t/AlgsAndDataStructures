@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AlgsAndDataStructures.Services;
+﻿namespace AlgsAndDataStructures.Services;
 
 public class IntSortingService : ISortingService<int>
 {
@@ -115,6 +113,44 @@ public class IntSortingService : ISortingService<int>
             firstIndex++;
         }
 
+        return sortedData;
+    }
+
+    public IEnumerable<int> InsertionSort(IEnumerable<int> data)
+    {
+        List<int> sortedData = new(data);
+        for (int index1 = 1; index1 < sortedData.Count; index1++)
+        {
+            int keyValue = sortedData[index1];
+            int index2 = index1 - 1;
+
+            while (index2 >= 0 && sortedData[index2] > keyValue)
+            {
+                sortedData[index2 + 1] = sortedData[index2];
+                index2--;
+            }
+            sortedData[index2 + 1] = keyValue;
+        }
+
+        return sortedData;
+    }
+
+    public IEnumerable<int> GnomeSort(IEnumerable<int> data)
+    {
+        List<int> sortedData = new(data);
+        int index = 0;
+        while (index < sortedData.Count)
+        {
+            if (index == 0 || sortedData[index - 1] < sortedData[index])
+            {
+                index++;
+            }
+            else
+            {
+                SwapIfNextIsHigher(sortedData, index - 1);
+                index--;
+            }
+        }
         return sortedData;
     }
 
