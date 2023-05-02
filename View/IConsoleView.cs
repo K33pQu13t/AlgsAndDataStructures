@@ -3,7 +3,7 @@
 /// <summary>
 /// Общий интерфейс для консольных представлений
 /// </summary>
-public interface IConsoleView
+internal interface IConsoleView
 {
     void Run();
 }

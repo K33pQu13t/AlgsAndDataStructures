@@ -3,7 +3,7 @@
 /// <summary>
 /// Базовое консольное представление
 /// </summary>
-public abstract class BaseConsoleView : IConsoleView
+internal abstract class BaseConsoleView : IConsoleView
 {
     protected virtual Dictionary<string, string> _options { get; set; } = new Dictionary<string, string>();
 

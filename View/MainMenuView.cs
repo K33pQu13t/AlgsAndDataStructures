@@ -29,11 +29,18 @@ internal class MainMenuView : BaseConsoleView
             { "3", "Распечатать первый элемент файла" },
             { "4", "Распечатать последний элемент файла" },
             { "5", "Записать в текстовый файл N целых чисел, используя ручной ввод" },
-            { "6", "Поместить числа из файла в глобальный целочисленный динамический массив" },
-            { "7", "Вывести на печать числа из глобального динамического массива" },
-            { "8", "Сортировка..." },
+            { "6", "Поместить числа из файла в глобальный целочисленный динамический список" },
+            { "7", "Вывести на печать числа из глобального динамического списка" },
+            { "8", "Вывести на печать первый элемент из глобального динамического списка" },
+            { "9", "Вывести на печать последний элемент из глобального динамического списка" },
+            { "10", "Сортировка..." },
             { "00", "Выход из программы" }
         };
+    }
+
+    protected void PrintGlobalListIsEmpty()
+    {
+        Console.WriteLine("Глобальный динамический список пуст");
     }
 
     public override void Run()
@@ -122,20 +129,54 @@ internal class MainMenuView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _numbersStorageService.Get(), out object? objectResult
                 );
-                IEnumerable<int> numbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    numbers = (IEnumerable<int>)objectResult;
+                    Console.WriteLine(string.Join('\n', (IEnumerable<int>)objectResult));
                 }
-                Console.WriteLine(string.Join('\n', numbers));
+                else
+                {
+                    PrintGlobalListIsEmpty();
+                }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
                 break;
             }
             case "8":
             {
+                PrintOperationNameByKey(input);
+                long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
+                    => _numbersStorageService.GetFirst(), out object? objectResult
+                );
+                if (objectResult is not null)
+                {
+                    Console.WriteLine($"Первый элемент глобального динамического списка: {(int)objectResult}");
+                }
+                else
+                {
+                    PrintGlobalListIsEmpty();
+                }
+                break;
+            }
+            case "9":
+            {
+                PrintOperationNameByKey(input);
+                long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
+                    => _numbersStorageService.GetLast(), out object? objectResult
+                );
+                if (objectResult is not null)
+                {
+                    Console.WriteLine($"Последний элемент глобального динамического списка: {(int)objectResult}");
+                }
+                else
+                {
+                    PrintGlobalListIsEmpty();
+                }
+                break;
+            }
+            case "10":
+            {
                 _sortingView.Run();
-                // Когда управление передастся из меню выше обратно, нужно вывести текущее меню
+                // Когда управление передастся из меню выше обратно сюда, нужно будет вывести текущее меню, иначе это может дизориентировать
                 PrintMenu();
                 break;
             }

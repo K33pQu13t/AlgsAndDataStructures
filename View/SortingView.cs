@@ -6,7 +6,7 @@ namespace AlgsAndDataStructures.View;
 /// <summary>
 /// Представление 
 /// </summary>
-public class SortingView : BaseConsoleView
+internal class SortingView : BaseConsoleView
 {
     private readonly INumbersStorageService _numbersStorageService;
     private readonly IPerfomanceProviderService _perfomanceProviderService;
@@ -20,12 +20,12 @@ public class SortingView : BaseConsoleView
 
         _options = new Dictionary<string, string>()
         {
-            { "1", "Сортировка глобального массива пузырьком" },
-            { "2", "Сортировка глобального массива пузырьком с контролем наличия обменов" },
-            { "3", "Сортировка глобального массива перемешиванием" },
-            { "4", "Сортировка глобального массива перемешиванием с контролем наличия обменов" },
-            { "5", "Сортировка глобального массива вставками" },
-            { "6", "Гномья сортировка глобального массива" },
+            { "1", "Сортировка глобального списка пузырьком" },
+            { "2", "Сортировка глобального списка пузырьком с контролем наличия обменов" },
+            { "3", "Сортировка глобального списка перемешиванием" },
+            { "4", "Сортировка глобального списка перемешиванием с контролем наличия обменов" },
+            { "5", "Сортировка глобального списка вставками" },
+            { "6", "Гномья сортировка глобального списка" },
             { "99", "Назад" }
         };
     }
@@ -49,11 +49,9 @@ public class SortingView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.BubbleSort(numbers), out object? objectResult
                 );
-                IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    sortedNumbers = (IEnumerable<int>)objectResult;
-                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
@@ -66,11 +64,9 @@ public class SortingView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.BubbleSortWithSwapChecks(numbers), out object? objectResult
                 );
-                IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    sortedNumbers = (IEnumerable<int>)objectResult;
-                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
@@ -83,11 +79,9 @@ public class SortingView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.ShufflingSort(numbers), out object? objectResult
                 );
-                IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    sortedNumbers = (IEnumerable<int>)objectResult;
-                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
@@ -100,11 +94,9 @@ public class SortingView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.ShufflingSortWithSwapChecks(numbers), out object? objectResult
                 );
-                IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    sortedNumbers = (IEnumerable<int>)objectResult;
-                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
@@ -117,11 +109,9 @@ public class SortingView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.InsertionSort(numbers), out object? objectResult
                 );
-                IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    sortedNumbers = (IEnumerable<int>)objectResult;
-                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
@@ -134,11 +124,9 @@ public class SortingView : BaseConsoleView
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _sortingService.GnomeSort(numbers), out object? objectResult
                 );
-                IEnumerable<int> sortedNumbers = new List<int>();
                 if (objectResult is not null)
                 {
-                    sortedNumbers = (IEnumerable<int>)objectResult;
-                    Console.WriteLine(string.Join("\n", sortedNumbers));
+                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);

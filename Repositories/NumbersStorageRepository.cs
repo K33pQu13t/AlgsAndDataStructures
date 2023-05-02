@@ -1,4 +1,4 @@
-﻿using System.Collections.Immutable;
+﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
 
 namespace AlgsAndDataStructures.Repositories;
 
@@ -12,6 +12,18 @@ public interface INumbersStorageRepository
     /// </summary>
     /// <returns></returns>
     IEnumerable<int> Get();
+
+    /// <summary>
+    /// Получить первое число текущей коллекции
+    /// </summary>
+    /// <returns></returns>
+    int? GetFirst();
+
+    /// <summary>
+    /// Получить последнее число текущей коллекции
+    /// </summary>
+    /// <returns></returns>
+    int? GetLast();
 
     /// <summary>
     /// Перезаписать текущую колекцию чисел
@@ -28,17 +40,21 @@ public interface INumbersStorageRepository
 
 public class NumbersStorageRepository : INumbersStorageRepository
 {
-    private IImmutableList<int> _numbers = ImmutableList.Create<int>();
+    private CustomList<int?> _numbers = new();
 
-    public IEnumerable<int> Get() => _numbers;
+    public IEnumerable<int> Get() => _numbers.AsEnumerable().Cast<int>();
+
+    public int? GetFirst() => _numbers.First();
+
+    public int? GetLast() => _numbers.Last();
 
     public void Set(IEnumerable<int> numbers)
     {
-        _numbers = ImmutableList.CreateRange<int>(numbers);
+        _numbers = new(numbers.Cast<int?>());
     } 
 
     public void Add(int number)
     {
-        _numbers.Insert(_numbers.Count-1, number);
+        _numbers.Add(number);
     }
 }
