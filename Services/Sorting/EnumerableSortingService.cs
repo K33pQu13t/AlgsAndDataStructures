@@ -1,4 +1,4 @@
-﻿namespace AlgsAndDataStructures.Services;
+﻿namespace AlgsAndDataStructures.Services.Sorting;
 
 public class EnumerableSortingService<T> : ISortingService<T>
 {
@@ -12,7 +12,7 @@ public class EnumerableSortingService<T> : ISortingService<T>
         int count = sortedData.Count;
         for (int index1 = 0; index1 < count - 1; index1++)
         {
-            for (int index2 = 0; index2 < count - 1 - index1 ; index2++)
+            for (int index2 = 0; index2 < count - 1 - index1; index2++)
             {
                 SwapIfNextIsHigher(sortedData, index2);
             }
@@ -61,7 +61,7 @@ public class EnumerableSortingService<T> : ISortingService<T>
             for (int index = firstIndex; index < lastIndex; index++)
             {
                 if (SwapIfNextIsHigher(sortedData, index))
-                { 
+                {
                     isSwapped = true;
                 }
             }
