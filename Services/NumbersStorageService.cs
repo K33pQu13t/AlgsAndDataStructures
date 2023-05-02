@@ -1,4 +1,5 @@
-﻿using AlgsAndDataStructures.Repositories;
+﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
+using AlgsAndDataStructures.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AlgsAndDataStructures.Services;
@@ -13,6 +14,12 @@ public interface INumbersStorageService
     /// </summary>
     /// <returns></returns>
     IEnumerable<int> Get();
+
+    /// <summary>
+    /// Получить копию текущей коллекции чисел в виде <see cref="CustomList{T}"/>
+    /// </summary>
+    /// <returns></returns>
+    CustomList<int> GetAsCustomList();
 
     /// <summary>
     /// Получить первое число текущей коллекции
@@ -48,6 +55,8 @@ public class NumbersStorageService : INumbersStorageService
     }
 
     public IEnumerable<int> Get() => _numbersStorageRepository.Get();
+
+    public CustomList<int> GetAsCustomList() => _numbersStorageRepository.GetAsCustomList();
 
     public int? GetFirst() => _numbersStorageRepository.GetFirst();
     public int? GetLast() => _numbersStorageRepository.GetLast();

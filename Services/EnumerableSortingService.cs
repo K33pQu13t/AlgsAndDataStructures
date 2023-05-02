@@ -1,10 +1,14 @@
 ﻿namespace AlgsAndDataStructures.Services;
 
-public class IntSortingService : ISortingService<int>
+public class EnumerableSortingService<T> : ISortingService<T>
 {
-    public IEnumerable<int> BubbleSort(IEnumerable<int> data)
+    protected Comparer<T> _comparer = Comparer<T>.Default;
+
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
+    public IEnumerable<T> BubbleSort(IEnumerable<T> data)
     {
-        List<int> sortedData = new(data);
+        List<T> sortedData = new(data);
         int count = sortedData.Count;
         for (int index1 = 0; index1 < count - 1; index1++)
         {
@@ -16,9 +20,11 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
-    public IEnumerable<int> BubbleSortWithSwapChecks(IEnumerable<int> data)
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
+    public IEnumerable<T> BubbleSortWithSwapChecks(IEnumerable<T> data)
     {
-        List<int> sortedData = new(data);
+        List<T> sortedData = new(data);
         int count = sortedData.Count;
         bool isSwapped;
         for (int index1 = 0; index1 < count - 1; index1++)
@@ -39,9 +45,11 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
-    public IEnumerable<int> ShufflingSort(IEnumerable<int> data)
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
+    public IEnumerable<T> ShufflingSort(IEnumerable<T> data)
     {
-        List<int> sortedData = new(data);
+        List<T> sortedData = new(data);
         bool isSwapped = true;
         int firstIndex = 0;
         int lastIndex = sortedData.Count - 1;
@@ -74,9 +82,11 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
-    public IEnumerable<int> ShufflingSortWithSwapChecks(IEnumerable<int> data)
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
+    public IEnumerable<T> ShufflingSortWithSwapChecks(IEnumerable<T> data)
     {
-        List<int> sortedData = new(data);
+        List<T> sortedData = new(data);
         bool isSwapped = true;
         int firstIndex = 0;
         int lastIndex = sortedData.Count - 1;
@@ -116,15 +126,17 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
-    public IEnumerable<int> InsertionSort(IEnumerable<int> data)
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
+    public IEnumerable<T> InsertionSort(IEnumerable<T> data)
     {
-        List<int> sortedData = new(data);
+        List<T> sortedData = new(data);
         for (int index1 = 1; index1 < sortedData.Count; index1++)
         {
-            int keyValue = sortedData[index1];
+            T keyValue = sortedData[index1];
             int index2 = index1 - 1;
 
-            while (index2 >= 0 && sortedData[index2] > keyValue)
+            while (index2 >= 0 && _comparer.Compare(sortedData[index2], keyValue) > 0)
             {
                 sortedData[index2 + 1] = sortedData[index2];
                 index2--;
@@ -135,13 +147,15 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
-    public IEnumerable<int> GnomeSort(IEnumerable<int> data)
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
+    public IEnumerable<T> GnomeSort(IEnumerable<T> data)
     {
-        List<int> sortedData = new(data);
+        List<T> sortedData = new(data);
         int index = 0;
         while (index < sortedData.Count)
         {
-            if (index == 0 || sortedData[index - 1] < sortedData[index])
+            if (index == 0 || _comparer.Compare(sortedData[index - 1], sortedData[index]) < 0)
             {
                 index++;
             }
@@ -160,10 +174,10 @@ public class IntSortingService : ISortingService<int>
     /// </summary>
     /// <param name="data"></param>
     /// <param name="index"></param>
-    /// <returns></returns>
-    private bool SwapIfNextIsHigher(List<int> data, int index)
+    /// <returns><see cref="true"/> если смена была произведена</returns>
+    private bool SwapIfNextIsHigher(List<T> data, int index)
     {
-        if (data[index] > data[index + 1])
+        if (_comparer.Compare(data[index], data[index + 1]) > 0)
         {
             (data[index + 1], data[index]) = (data[index], data[index + 1]);
             return true;

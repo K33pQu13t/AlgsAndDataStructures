@@ -1,4 +1,6 @@
-﻿using AlgsAndDataStructures.Services;
+﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
+using AlgsAndDataStructures.Extensions;
+using AlgsAndDataStructures.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AlgsAndDataStructures.View;
@@ -45,13 +47,14 @@ internal class SortingView : BaseConsoleView
             case "1":
             {
                 PrintOperationNameByKey(input);
-                IEnumerable<int> numbers = _numbersStorageService.Get();
+                CustomList<int> customList = _numbersStorageService.GetAsCustomList();
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
-                    => _sortingService.BubbleSort(numbers), out object? objectResult
+                    => customList.BubbleSort(), out object? objectResult
                 );
                 if (objectResult is not null)
                 {
-                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
+                    CustomList<int> sortedCustomList = (CustomList<int>)objectResult;
+                    Console.WriteLine(string.Join("\n", sortedCustomList.AsEnumerable()));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
@@ -120,13 +123,14 @@ internal class SortingView : BaseConsoleView
             case "6":
             {
                 PrintOperationNameByKey(input);
-                IEnumerable<int> numbers = _numbersStorageService.Get();
+                CustomList<int> customList = _numbersStorageService.GetAsCustomList();
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
-                    => _sortingService.GnomeSort(numbers), out object? objectResult
+                    => customList.GnomeSort(), out object? objectResult
                 );
                 if (objectResult is not null)
                 {
-                    Console.WriteLine(string.Join("\n", (IEnumerable<int>)objectResult));
+                    CustomList<int> sortedCustomList = (CustomList<int>)objectResult;
+                    Console.WriteLine(string.Join("\n", sortedCustomList.AsEnumerable()));
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
