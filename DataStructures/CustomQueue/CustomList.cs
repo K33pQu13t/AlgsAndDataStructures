@@ -18,6 +18,14 @@ public class CustomList<T>
         }
     }
 
+    public CustomList(CustomList<T> customList)
+    {
+        for (int index = 0; index < customList.Count; index++)
+        {
+            Add(customList[index]);
+        }
+    }
+
     /// <summary>
     /// Получить значение первого элемента списка
     /// </summary>
@@ -89,5 +97,41 @@ public class CustomList<T>
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// Количество элементов в списке
+    /// </summary>
+    /// <returns></returns>
+    public int Count => AsEnumerable().Count();
+
+    public T this[int index]
+    {
+        get
+        {
+            var targetNode = first ?? throw new IndexOutOfRangeException();
+            for (int elementIndex = 0; elementIndex < index; elementIndex++)
+            {
+                targetNode = targetNode.Next;
+                if (targetNode == null)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+            }
+            return targetNode.Value;
+        }
+        set
+        {
+            var targetNode = first ?? throw new IndexOutOfRangeException();
+            for (int elementIndex = 0; elementIndex < index; elementIndex++)
+            {
+                targetNode = targetNode.Next;
+                if (targetNode == null)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+            }
+            targetNode.Value = value;
+        }
     }
 }

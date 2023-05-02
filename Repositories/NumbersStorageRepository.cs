@@ -14,6 +14,12 @@ public interface INumbersStorageRepository
     IEnumerable<int> Get();
 
     /// <summary>
+    /// Получить копию текущей коллекции чисел в виде <see cref="CustomList{T}"/>
+    /// </summary>
+    /// <returns></returns>
+    CustomList<int> GetAsCustomList();
+
+    /// <summary>
     /// Получить первое число текущей коллекции
     /// </summary>
     /// <returns></returns>
@@ -40,9 +46,11 @@ public interface INumbersStorageRepository
 
 public class NumbersStorageRepository : INumbersStorageRepository
 {
-    private CustomList<int?> _numbers = new();
+    private CustomList<int> _numbers = new();
 
     public IEnumerable<int> Get() => _numbers.AsEnumerable().Cast<int>();
+
+    public CustomList<int> GetAsCustomList() => new(_numbers);
 
     public int? GetFirst() => _numbers.First();
 
@@ -50,7 +58,7 @@ public class NumbersStorageRepository : INumbersStorageRepository
 
     public void Set(IEnumerable<int> numbers)
     {
-        _numbers = new(numbers.Cast<int?>());
+        _numbers = new(numbers);
     } 
 
     public void Add(int number)

@@ -2,6 +2,8 @@
 
 public class IntSortingService : ISortingService<int>
 {
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
     public IEnumerable<int> BubbleSort(IEnumerable<int> data)
     {
         List<int> sortedData = new(data);
@@ -16,6 +18,8 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
     public IEnumerable<int> BubbleSortWithSwapChecks(IEnumerable<int> data)
     {
         List<int> sortedData = new(data);
@@ -39,6 +43,8 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
     public IEnumerable<int> ShufflingSort(IEnumerable<int> data)
     {
         List<int> sortedData = new(data);
@@ -74,6 +80,8 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
     public IEnumerable<int> ShufflingSortWithSwapChecks(IEnumerable<int> data)
     {
         List<int> sortedData = new(data);
@@ -116,6 +124,8 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
     public IEnumerable<int> InsertionSort(IEnumerable<int> data)
     {
         List<int> sortedData = new(data);
@@ -135,6 +145,8 @@ public class IntSortingService : ISortingService<int>
         return sortedData;
     }
 
+    /// <inheritdoc/>
+    /// <returns>Новая, отсортированная коллекция</returns>
     public IEnumerable<int> GnomeSort(IEnumerable<int> data)
     {
         List<int> sortedData = new(data);
@@ -160,7 +172,7 @@ public class IntSortingService : ISortingService<int>
     /// </summary>
     /// <param name="data"></param>
     /// <param name="index"></param>
-    /// <returns></returns>
+    /// <returns><see cref="true"/> если смена была произведена</returns>
     private bool SwapIfNextIsHigher(List<int> data, int index)
     {
         if (data[index] > data[index + 1])
