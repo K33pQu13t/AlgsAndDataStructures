@@ -1,4 +1,4 @@
-﻿namespace AlgsAndDataStructures.Services;
+﻿namespace AlgsAndDataStructures.Services.Sorting;
 
 public interface ISortingService<TType>
 {

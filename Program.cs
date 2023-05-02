@@ -1,5 +1,7 @@
 ﻿using AlgsAndDataStructures.Repositories;
 using AlgsAndDataStructures.Services;
+using AlgsAndDataStructures.Services.Puzzle;
+using AlgsAndDataStructures.Services.Sorting;
 using AlgsAndDataStructures.View;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +16,9 @@ internal class Program
             .AddScoped<INumbersStorageService, NumbersStorageService>()
             .AddScoped<IPerfomanceProviderService, PerfomanceProviderService>()
             .AddScoped<ISortingService<int>, EnumerableSortingService<int>>()
+            .AddScoped<IFibonacciSolverService, FibonacciSolverService>()
             .AddScoped<SortingView>()
+            .AddScoped<PuzzlesView>()
             .AddSingleton<INumbersStorageRepository, NumbersStorageRepository>()
             .BuildServiceProvider();
 

@@ -13,6 +13,7 @@ internal class MainMenuView : BaseConsoleView
     private readonly IPerfomanceProviderService _perfomanceProviderService;
 
     private readonly SortingView _sortingView;
+    private readonly PuzzlesView _puzzleView;
 
     public MainMenuView(IServiceProvider serviceProvider)
     {
@@ -21,6 +22,7 @@ internal class MainMenuView : BaseConsoleView
         _perfomanceProviderService = serviceProvider.GetRequiredService<IPerfomanceProviderService>();
 
         _sortingView = serviceProvider.GetRequiredService<SortingView>();
+        _puzzleView = serviceProvider.GetRequiredService<PuzzlesView>();
 
         _options = new Dictionary<string, string>()
         {
@@ -34,6 +36,7 @@ internal class MainMenuView : BaseConsoleView
             { "8", "Вывести на печать первый элемент из глобального динамического списка" },
             { "9", "Вывести на печать последний элемент из глобального динамического списка" },
             { "10", "Сортировка..." },
+            { "11", "Задачки..." },
             { "00", "Выход из программы" }
         };
     }
@@ -176,6 +179,13 @@ internal class MainMenuView : BaseConsoleView
             case "10":
             {
                 _sortingView.Run();
+                // Когда управление передастся из меню выше обратно сюда, нужно будет вывести текущее меню, иначе это может дизориентировать
+                PrintMenu();
+                break;
+            }
+            case "11":
+            {
+                _puzzleView.Run();
                 // Когда управление передастся из меню выше обратно сюда, нужно будет вывести текущее меню, иначе это может дизориентировать
                 PrintMenu();
                 break;

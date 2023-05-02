@@ -1,6 +1,7 @@
 ﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
 using AlgsAndDataStructures.Extensions;
 using AlgsAndDataStructures.Services;
+using AlgsAndDataStructures.Services.Sorting;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AlgsAndDataStructures.View;

@@ -28,7 +28,7 @@ internal class PerfomanceProviderService : IPerfomanceProviderService
 
     public long RunToCheckPerfomance(Action method)
     {
-        _stopwatch.Start();
+        _stopwatch.Restart();
         method();
         _stopwatch.Stop();
         return _stopwatch.ElapsedMilliseconds;
@@ -36,7 +36,7 @@ internal class PerfomanceProviderService : IPerfomanceProviderService
 
     public long RunToCheckPerfomance(Func<object> method, out object? methodResult)
     {
-        _stopwatch.Start();
+        _stopwatch.Restart();
         methodResult = method();
         _stopwatch.Stop();
         return _stopwatch.ElapsedMilliseconds;
