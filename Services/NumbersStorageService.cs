@@ -15,6 +15,18 @@ public interface INumbersStorageService
     IEnumerable<int> Get();
 
     /// <summary>
+    /// Получить первое число текущей коллекции
+    /// </summary>
+    /// <returns></returns>
+    int? GetFirst();
+
+    /// <summary>
+    /// Получить последнее число текущей коллекции
+    /// </summary>
+    /// <returns></returns>
+    int? GetLast();
+
+    /// <summary>
     /// Перезаписать текущую колекцию чисел
     /// </summary>
     /// <param name="numbers"></param>
@@ -35,10 +47,10 @@ public class NumbersStorageService : INumbersStorageService
         _numbersStorageRepository = serviceProvider.GetRequiredService<INumbersStorageRepository>();
     }
 
-    public IEnumerable<int> Get()
-    {
-        return _numbersStorageRepository.Get();
-    }
+    public IEnumerable<int> Get() => _numbersStorageRepository.Get();
+
+    public int? GetFirst() => _numbersStorageRepository.GetFirst();
+    public int? GetLast() => _numbersStorageRepository.GetLast();
 
     public void Add(int number)
     {
