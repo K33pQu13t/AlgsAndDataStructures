@@ -17,6 +17,7 @@ internal class Program
             .AddScoped<IPerfomanceProviderService, PerfomanceProviderService>()
             .AddScoped<ISortingService<int>, EnumerableSortingService<int>>()
             .AddScoped<IFibonacciSolverService, FibonacciSolverService>()
+            .AddScoped<INoSenceRecursionSolverService, NoSenceRecursionSolverService>()
             .AddScoped<SortingView>()
             .AddScoped<PuzzlesView>()
             .AddSingleton<INumbersStorageRepository, NumbersStorageRepository>()

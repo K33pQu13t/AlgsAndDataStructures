@@ -10,16 +10,19 @@ internal class PuzzlesView : BaseConsoleView
 {
     private readonly IPerfomanceProviderService _perfomanceProviderService;
     private readonly IFibonacciSolverService _fibonacciSolverService;
+    private readonly INoSenceRecursionSolverService _noSenceRecursionSolverService;
     protected readonly Dictionary<string, string> _descriptions;
 
     public PuzzlesView(IServiceProvider serviceProvider)
     {
         _perfomanceProviderService = serviceProvider.GetRequiredService<IPerfomanceProviderService>();
         _fibonacciSolverService = serviceProvider.GetRequiredService<IFibonacciSolverService>();
+        _noSenceRecursionSolverService = serviceProvider.GetRequiredService<INoSenceRecursionSolverService>();
 
         _options = new Dictionary<string, string>()
         {
             { "1", "Числа Фибоначчи" },
+            { "2", "Бессмысленная рекурсивная функция" },
             { "99", "Назад" }
         };
 
@@ -52,6 +55,24 @@ internal class PuzzlesView : BaseConsoleView
                 {
                     BigInteger result = (BigInteger)objectResult;
                     Console.WriteLine($"Число, которое получится после {countOfIterations} итераций алгоритма Фибоначчи: {result}");
+                }
+                PrintSuccess();
+                PrintHowMuchMillisecondsHavePassed(milliseconds);
+                break;
+            }
+            case "2":
+            {
+                PrintOperationNameByKey(input);
+                int a = AskUserForNumber("Введите a: ");
+                int c = AskUserForNumber("Введите c: ");
+                int m = AskUserForNumber("Введите m: ");
+                long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
+                    => _noSenceRecursionSolverService.NoSenceRecursion(a, c, m), out object? objectResult
+                );
+                if (objectResult is not null)
+                {
+                    decimal result = (decimal)objectResult;
+                    Console.WriteLine($"Результат этой рекурсивной функции: {result}");
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
