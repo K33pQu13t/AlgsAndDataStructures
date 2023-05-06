@@ -1,4 +1,4 @@
-﻿namespace AlgsAndDataStructures.DataStructures.CustomQueue;
+﻿namespace AlgsAndDataStructures.DataStructures.List;
 
 /// <summary>
 /// Обобщённый кастомный список
