@@ -1,4 +1,5 @@
-﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
+﻿using AlgsAndDataStructures.DataStructures.Tree;
+using AlgsAndDataStructures.Domain.Entities;
 using AlgsAndDataStructures.Services;
 using AlgsAndDataStructures.Services.Puzzle;
 using Microsoft.Extensions.DependencyInjection;
@@ -84,23 +85,19 @@ internal class PuzzlesView : BaseConsoleView
             }
             case "3":
             {
-                //int widthOfDesk = AskUserForNumber("Введите ширину доски: ");
-                //int heightOfDesk = AskUserForNumber("Введите высоту доски: ");
-                //int x = AskUserForNumber("Введите стартовую точку по X");
-                //int y = AskUserForNumber("Введите стартовую точку по Y");
-                int widthOfDesk = 5;
-                int heightOfDesk = 5;
-                int x = 3;
-                int y = 3;
+                int widthOfDesk = AskUserForNumber("Введите ширину доски: ");
+                int heightOfDesk = AskUserForNumber("Введите высоту доски: ");
+                int x = AskUserForNumber("Введите стартовую точку по X");
+                int y = AskUserForNumber("Введите стартовую точку по Y");
                 long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
                     => _knightProblemSolverService.Solve(widthOfDesk, heightOfDesk, new Point() { X = x, Y = y}), 
                             out object? objectResult
                 );
-                //if (objectResult is not null)
-                //{
-                //    BigInteger result = (BigInteger)objectResult;
-                //    Console.WriteLine($"Число, которое получится после {countOfIterations} итераций алгоритма Фибоначчи: {result}");
-                //}
+                if (objectResult is not null)
+                {
+                    NonBinaryTree<KnightPosition> result = (NonBinaryTree<KnightPosition>)objectResult;
+                    _knightProblemSolverService.PrintAllSolutions(result, widthOfDesk, heightOfDesk);
+                }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
                 break;

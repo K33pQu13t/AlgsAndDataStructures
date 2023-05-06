@@ -1,4 +1,4 @@
-﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
+﻿using AlgsAndDataStructures.DataStructures.List;
 using AlgsAndDataStructures.Extensions;
 using AlgsAndDataStructures.Services;
 using AlgsAndDataStructures.Services.Sorting;

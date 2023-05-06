@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace AlgsAndDataStructures.Domain.Entities;
 
 /// <summary>
 /// Сущность, описывающая возможные ходы коня на шахматной доске, с историей ходов
 /// </summary>
-public class KnightMove
+public class KnightPosition
 {
     /// <summary>
     /// Текущая позиция коня

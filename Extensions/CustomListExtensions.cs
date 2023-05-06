@@ -1,14 +1,8 @@
-﻿using AlgsAndDataStructures.DataStructures.CustomQueue;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AlgsAndDataStructures.DataStructures.List;
 
 namespace AlgsAndDataStructures.Extensions;
 
-public static class CustomListExtentions
+public static class CustomListExtensions
 {
     public static CustomList<T> BubbleSort<T>(this CustomList<T> customList)
     {
