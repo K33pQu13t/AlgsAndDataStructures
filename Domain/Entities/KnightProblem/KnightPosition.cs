@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace AlgsAndDataStructures.Domain.Entities;
+namespace AlgsAndDataStructures.Domain.Entities.KnightProblem;
 
 /// <summary>
 /// Сущность, описывающая возможные ходы коня на шахматной доске, с историей ходов
