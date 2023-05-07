@@ -1,5 +1,6 @@
 ﻿using AlgsAndDataStructures.DataStructures.Tree;
-using AlgsAndDataStructures.Domain.Entities;
+using AlgsAndDataStructures.Domain.Entities.KnightProblem;
+using AlgsAndDataStructures.Domain.Entities.ParquetProblem;
 using AlgsAndDataStructures.Services;
 using AlgsAndDataStructures.Services.Puzzle;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,7 @@ internal class PuzzlesView : BaseConsoleView
     private readonly IFibonacciSolverService _fibonacciSolverService;
     private readonly INoSenceRecursionSolverService _noSenceRecursionSolverService;
     private readonly IKnightProblemSolverService _knightProblemSolverService;
-    protected readonly Dictionary<string, string> _descriptions;
+    private readonly IParquetProblemSolverService _parquetProblemSolverService;
 
     public PuzzlesView(IServiceProvider serviceProvider)
     {
@@ -22,18 +23,15 @@ internal class PuzzlesView : BaseConsoleView
         _fibonacciSolverService = serviceProvider.GetRequiredService<IFibonacciSolverService>();
         _noSenceRecursionSolverService = serviceProvider.GetRequiredService<INoSenceRecursionSolverService>();
         _knightProblemSolverService = serviceProvider.GetRequiredService<IKnightProblemSolverService>();
+        _parquetProblemSolverService = serviceProvider.GetRequiredService<IParquetProblemSolverService>();
 
         _options = new Dictionary<string, string>()
         {
             { "1", "Числа Фибоначчи" },
             { "2", "Бессмысленная рекурсивная функция" },
             { "3", "Задача о ходе коня" },
+            { "4", "Паркет" },
             { "99", "Назад" }
-        };
-
-        _descriptions = new Dictionary<string, string>()
-        {
-            { "1", "Числа Фибоначчи" },
         };
     }
 
@@ -85,6 +83,7 @@ internal class PuzzlesView : BaseConsoleView
             }
             case "3":
             {
+                PrintOperationNameByKey(input);
                 int widthOfDesk = AskUserForNumber("Введите ширину доски: ");
                 int heightOfDesk = AskUserForNumber("Введите высоту доски: ");
                 int x = AskUserForNumber("Введите стартовую точку по X");
@@ -100,6 +99,64 @@ internal class PuzzlesView : BaseConsoleView
                 }
                 PrintSuccess();
                 PrintHowMuchMillisecondsHavePassed(milliseconds);
+                break;
+            }
+            case "4":
+            {
+                PrintOperationNameByKey(input);
+                List<string> parquetMaket = AskUserForStringList("" +
+                    "Вставьте макет области, которую необходимо покрыть плиткой.\n" +
+                    "Используйте любой символ, кроме пробела, для обозначения места, куда можно положить плитку.\n" +
+                    "Используйте символ пробела для обозначения места, куда положить плитку нельзя.\n" +
+                    "Если одна из строк будет короче остальных, " +
+                    "она автоматически заполнится пробелами до конца оставшегося места.\n" +
+                    "Вводите макет по одной строчке. Нажмите enter два раза, когда закончите. " +
+                    "Пример макета:\n" +
+                    "aaaaaaa\n" +
+                    "aaaa aa\n" +
+                    "a aaaaa\n" +
+                    "aaa a a\n"
+                );
+
+                int maxLineLength = parquetMaket.Max(line => line.Length);
+
+                // найти все позиции, куда нельзя класть плитку
+                List<Point> prohibitedPositions = new();
+                for (int lineIndex = 0; lineIndex < parquetMaket.Count; lineIndex ++)
+                {
+                    if (parquetMaket[lineIndex].Length < maxLineLength)
+                    {
+                        parquetMaket[lineIndex] += string.Concat(Enumerable.Repeat(' ', maxLineLength - parquetMaket[lineIndex].Length));
+                    }
+                    for (int charIndex = 0; charIndex < parquetMaket[lineIndex].Length; charIndex++)
+                    {
+                        if (parquetMaket[lineIndex][charIndex] == ' ')
+                        {
+                            prohibitedPositions.Add(new Point(x: charIndex, y: lineIndex));
+                        }
+                    }
+                }
+
+                try
+                {
+                    long milliseconds = _perfomanceProviderService.RunToCheckPerfomance(()
+                    => _parquetProblemSolverService.Solve(maxLineLength, parquetMaket.Count, prohibitedPositions),
+                        out object? objectResult
+                    );
+                    if (objectResult is not null)
+                    {
+                        ParquetArea result = (ParquetArea)objectResult;
+                        Console.WriteLine("План укладки паркета: ");
+                        _parquetProblemSolverService.PrintParquet(result);
+                    }
+                    PrintSuccess();
+                    PrintHowMuchMillisecondsHavePassed(milliseconds);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                
                 break;
             }
             case "99":

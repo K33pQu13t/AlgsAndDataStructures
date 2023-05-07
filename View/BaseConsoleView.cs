@@ -41,7 +41,7 @@ internal abstract class BaseConsoleView : IConsoleView
             return;
         }
 
-        Console.WriteLine("Введите команду: ");
+        Console.WriteLine("\nВведите команду: ");
         string input = Console.ReadLine();
         InputResolver(input);
 
@@ -121,6 +121,24 @@ internal abstract class BaseConsoleView : IConsoleView
     {
         Console.WriteLine(askingMessage);
         return int.Parse(Console.ReadLine());
+    }
+
+    /// <summary>
+    /// Получить от пользователя коллекцию строк
+    /// </summary>
+    /// <param name="askingMessage"></param>
+    /// <returns></returns>
+    protected List<string> AskUserForStringList(string askingMessage)
+    {
+        Console.WriteLine(askingMessage);
+        List<string> result = new();
+        string line = Console.ReadLine();
+        while (!string.IsNullOrWhiteSpace(line))
+        {
+            result.Add(line);
+            line = Console.ReadLine();
+        }
+        return result;
     }
 
     /// <summary>

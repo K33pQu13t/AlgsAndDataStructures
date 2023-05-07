@@ -1,5 +1,5 @@
 ﻿using AlgsAndDataStructures.DataStructures.Tree;
-using AlgsAndDataStructures.Domain.Entities;
+using AlgsAndDataStructures.Domain.Entities.KnightProblem;
 using AlgsAndDataStructures.Extensions;
 using System.Drawing;
 
